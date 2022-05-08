@@ -1,0 +1,19 @@
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: <certificate-authority-data>
+    server: https://<cluster-ip>
+  name: kubernetes_cluster
+contexts:
+- context:
+    cluster: kubernetes_cluster
+    user: kubernetes_cluster
+  name: kubernetes_cluster
+current-context: kubernetes_cluster
+kind: Config
+preferences: {}
+users:
+- name: kubernetes_cluster
+  user:
+    token: <user-token>
+

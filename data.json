@@ -1,0 +1,14 @@
+{
+  "authentication": {
+    "cluster": {
+      "certificate-authority-data": "LS0K",
+      "server": "35.235.86.213"
+    },
+    "user": {
+      "token": "eZCIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0Om1hc3Nkcml2ZXItY2xvdWQtcHJvdmlzaW9uZXIifQ.AQ_MBsO_iOLFSDCTyKkGqdO1SsxINi_N_TvjeWGnAG09ycT5hWWxjcy6hvqAKskX5cqZAJAlvJOfXD7PCgJoWGxSZgO4cnev_5tRTmywHodz9eR2rQWrLRuyNNmdZmk4UQTr6fO0vz1728nnR0vI_XeXWVV5Wv0O20dPiMWmEuKWY5WY73lsWno2UfcNCSH6kApnO1ynRGYppCHDzJj_jQ5oalRMkraiay4Kcz0IJRqsSNyNqsGzaFNr4iBEpmIOeiaPNZYKsuDfE7Lth1TClilQERQ71ylPHRXlvnNyJYmdtGm-oAlwE8SM1oIMwD3jg7HhGLyZiIIGlkw6TpoJfg"
+    }
+  },
+  "infrastructure": {
+    "grn": "projects/globalnetworktest/locations/us-west2/clusters/willbgc-product-kubey-75q3"
+  }
+}
