@@ -1,14 +1,9 @@
 # action.yaml
 name: 'Massdriver Kubernetes Authentication'
 description: 'Consumes a kubernetes-cluster artifact, and sets up authentication with the cluster'
-inputs:
-  artifact_kubernetes_cluster:
-    description: 'number of the pokemon in the pokedex'
-    required: true
-    default: 1
 outputs:
-  pokemon_name:
-    description: 'Name des Pokemons'
+  kube_config:
+    description: 'Path to the kube config file'
 runs:
   using: 'docker'
   image: 'Dockerfile'
