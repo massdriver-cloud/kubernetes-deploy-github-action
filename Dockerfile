@@ -1,7 +1,5 @@
-# Base image
 FROM alpine:latest
 
-# installes required packages for our script
 RUN	apk add --no-cache \
   bash \
   ca-certificates \
@@ -13,16 +11,9 @@ RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.21.0/b
   mv ./kubectl /usr/local/bin/kubectl
 
 COPY . .
-RUN ./entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 ENV KUBECONFIG=kube-config
 
-
-
-
-# # change permission to execute the script and
-# RUN chmod +x /entrypoint.sh
-
-# # file to execute when the docker container starts up
-# ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
 

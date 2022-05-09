@@ -1,17 +1,16 @@
 # action.yaml
-name: "Blog Custom Github Action"
-description: "Call an API and get the result"
+name: 'Massdriver Kubernetes Authentication'
+description: 'Consumes a kubernetes-cluster artifact, and sets up authentication with the cluster'
 inputs:
-  pokemon_id:
-    description: "number of the pokemon in the pokedex"
+  artifact_kubernetes_cluster:
+    description: 'number of the pokemon in the pokedex'
     required: true
     default: 1
 outputs:
   pokemon_name:
-    description: "Name des Pokemons"
+    description: 'Name des Pokemons'
 runs:
-  using: "docker"
-  image: "Dockerfile"
+  using: 'docker'
+  image: 'Dockerfile'
   args:
     - ${{ inputs.pokemon_id}}
-

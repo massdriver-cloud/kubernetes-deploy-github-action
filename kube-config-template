@@ -2,7 +2,7 @@ apiVersion: v1
 clusters:
 - cluster:
     certificate-authority-data: <certificate-authority-data>
-    server: https://<cluster-ip>
+    server: <cluster-server>
   name: kubernetes_cluster
 contexts:
 - context:
