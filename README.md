@@ -1,5 +1,9 @@
 # kubernetes-artifact-github-action
 
+### Example data.json
+
+This is an example of the data.json file that is expected as an environment variable.
+
 ```json
 {
   "authentication": {
@@ -30,5 +34,8 @@ jobs:
         id: kubernetes-authentication
         env:
           ARTIFACT_KUBERNETES_CLUSTER: ${{ secrets.ARTIFACT_KUBERNETES_CLUSTER }}
-        uses: docker/metadata-action@v3
+        uses: massdriver-cloud/kubernetes-authentication-github-action
+      - name: Deploy the application
+        run: |
+          kubectl patch -p '{"spec": {"template": {"spec": {"containers": [{"name": "application", "image": "<<FULL_IMAGE_PATH"}]}}}}'
 ```
