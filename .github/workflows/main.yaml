@@ -1,0 +1,19 @@
+on: [push]
+
+jobs:
+  test_action:
+    runs-on: ubuntu-latest
+    name: Test our GitHub action
+    steps:
+      # To use this repository's private action,
+      # you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Generate the kube config
+        env:
+          ARTIFACT_KUBERNETES_CLUSTER: ${{ secrets.ARTIFACT_KUBERNETES_CLUSTER }}
+        uses: ./ # Uses an action in the root directory
+        id: kubernetes-authentication
+      # Use the output from the `hello` step
+      - name: Get the kube config path
+        run: echo "The time was ${{ steps.kubernetes-authentication.outputs.time }}"
