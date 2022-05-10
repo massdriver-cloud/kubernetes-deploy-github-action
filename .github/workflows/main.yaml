@@ -5,19 +5,23 @@ jobs:
     runs-on: ubuntu-latest
     name: Test our GitHub action
     steps:
-      # To use this repository's private action,
-      # you must check out the repository
       - name: Checkout
         uses: actions/checkout@v3
       - name: Generate the kube config
         env:
-          ARTIFACT_KUBERNETES_CLUSTER: ${{ secrets.ARTIFACT_KUBERNETES_CLUSTER }}
+          ARTIFACT_KUBERNETES_CLUSTER: ${{ secrets.ARTIFACT_KUBERNETES_CLUSTER_AWS }}
         uses: ./ # Uses an action in the root directory
-        id: kubernetes-authentication
-      # Use the output from the `hello` step
-      - name: Get the kube config path
-        run: echo "Kube config path is ${{ steps.kubernetes-authentication.outputs.kube_config }}"
-      - name: Test kube config
+        id: kubernetes-authentication-aws
+      - name: Test kube config, AWS
         env:
-          KUBECONFIG: ${{ steps.kubernetes-authentication.outputs.kube_config }}
+          KUBECONFIG: ${{ steps.kubernetes-authentication-aws.outputs.kube_config }}
+        run: kubectl get pods
+      - name: Generate the kube config
+        env:
+          ARTIFACT_KUBERNETES_CLUSTER: ${{ secrets.ARTIFACT_KUBERNETES_CLUSTER_GCP }}
+        uses: ./
+        id: kubernetes-authentication-gcp
+      - name: Test kube config, GCP
+        env:
+          KUBECONFIG: ${{ steps.kubernetes-authentication-gcp.outputs.kube_config }}
         run: kubectl get pods
