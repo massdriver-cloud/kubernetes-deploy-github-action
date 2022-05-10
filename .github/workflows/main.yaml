@@ -16,4 +16,8 @@ jobs:
         id: kubernetes-authentication
       # Use the output from the `hello` step
       - name: Get the kube config path
-        run: echo "The time was ${{ steps.kubernetes-authentication.outputs.time }}"
+        run: echo "Kube config path is ${{ steps.kubernetes-authentication.outputs.kube_config }}"
+      - name: Test kube config
+        env:
+          KUBECONFIG: ${{ steps.kubernetes-authentication.outputs.kube_config }}
+        run: kubectl get pods

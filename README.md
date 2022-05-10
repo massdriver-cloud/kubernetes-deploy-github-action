@@ -15,9 +15,7 @@ This is an example of the data.json file that is expected as an environment vari
       "token": "base64-encoded-token"
     }
   },
-  "infrastructure": {
-    ...specific infrastructure details
-  }
+  "infrastructure": {}
 }
 ```
 

@@ -1,7 +1,11 @@
 #!/bin/bash
 set -e
 
+echo $ARTIFACT_KUBERNETES_CLUSTER > data1.json
 echo $ARTIFACT_KUBERNETES_CLUSTER  | base64 -d  > data.json
+
+cat data.json
+cat data1.json
 
 CERTIFICATE_AUTHORITY_DATA=$(jq '.authentication.cluster."certificate-authority-data"' data.json | sed s/\"//g)
 CLUSTER_SERVER=$(jq '.authentication.cluster.server' data.json | sed s/\"//g)
