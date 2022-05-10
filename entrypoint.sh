@@ -14,4 +14,4 @@ sed "s/<user-token>/${TOKEN}/" kube-config.tmp-1 > kube-config
 rm kube-config.tmp-0 kube-config.tmp-1
 
 # outout the path to the kubeconfig file so downstream steps can use it.
-::set-output name=kube_config::kube-config
+echo "::set-output name=kube_config::kube-config"
