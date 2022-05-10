@@ -1,11 +1,7 @@
 #!/bin/bash
 set -e
 
-echo $ARTIFACT_KUBERNETES_CLUSTER > data1.json
-echo $ARTIFACT_KUBERNETES_CLUSTER  | base64 -d  > data.json
-
-cat data.json
-cat data1.json
+echo $ARTIFACT_KUBERNETES_CLUSTER  > data.json
 
 CERTIFICATE_AUTHORITY_DATA=$(jq '.authentication.cluster."certificate-authority-data"' data.json | sed s/\"//g)
 CLUSTER_SERVER=$(jq '.authentication.cluster.server' data.json | sed s/\"//g)
@@ -16,6 +12,8 @@ sed "s|<cluster-server>|${CLUSTER_SERVER}|" kube-config.tmp-0 > kube-config.tmp-
 sed "s/<user-token>/${TOKEN}/" kube-config.tmp-1 > kube-config
 
 rm kube-config.tmp-0 kube-config.tmp-1
+
+cat kube-config
 
 # outout the path to the kubeconfig file so downstream steps can use it.
 echo "::set-output name=kube_config::kube-config"
