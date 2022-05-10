@@ -1,11 +1,9 @@
 #!/bin/bash
 set -e
 
-echo $ARTIFACT_KUBERNETES_CLUSTER  > data.json
-
-CERTIFICATE_AUTHORITY_DATA=$(jq '.authentication.cluster."certificate-authority-data"' data.json | sed s/\"//g)
-CLUSTER_SERVER=$(jq '.authentication.cluster.server' data.json | sed s/\"//g)
-TOKEN=$(jq '.authentication.user.token' data.json | sed s/\"//g)
+CERTIFICATE_AUTHORITY_DATA=$(echo $ARTIFACT_KUBERNETES_CLUSTER | jq -r '.authentication.cluster."certificate-authority-data"')
+CLUSTER_SERVER=$(echo $ARTIFACT_KUBERNETES_CLUSTER | jq -r '.authentication.cluster.server')
+TOKEN=$(echo $ARTIFACT_KUBERNETES_CLUSTER | jq -r '.authentication.user.token')
 
 sed "s/<certificate-authority-data>/${CERTIFICATE_AUTHORITY_DATA}/" kube-config-template > kube-config.tmp-0
 sed "s|<cluster-server>|${CLUSTER_SERVER}|" kube-config.tmp-0 > kube-config.tmp-1

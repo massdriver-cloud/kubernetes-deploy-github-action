@@ -1,9 +1,9 @@
 # kubernetes-artifact-github-action
 
+### Adding A GitHub Action Secret
 
-### Example data.json
-
-This is an example of the data.json file that is expected as an environment variable.
+This action expects an evironment variable called `ARTIFACT_KUBERNETES_CLUSTER` with the value set as a Massdriver _artifact_.
+This is an example of the `kubernetes-cluster` artifact, downloaded from the Massdriver UI, as a data.json file.
 
 ```json
 {
@@ -20,10 +20,23 @@ This is an example of the data.json file that is expected as an environment vari
 }
 ```
 
+GitHub environment variables don't work well with newlines, so we'll simply replace them with spaces. (`pbcopy` can be used to copy the newline-free environment variable to the clipboard.)
+
+```
+cat data.json | tr '\n' ' ' | pbcopy
+```
+
 ### Example Usage
 
 ```yaml
 name: Deploy to cluster
+on:
+  workflow_dispatch:
+    inputs:
+      imagePath:
+        description: 'Application image path'
+        required: true
+
 jobs:
   deploy_application:
     name: Deploy
@@ -35,6 +48,8 @@ jobs:
           ARTIFACT_KUBERNETES_CLUSTER: ${{ secrets.ARTIFACT_KUBERNETES_CLUSTER }}
         uses: massdriver-cloud/kubernetes-authentication-github-action
       - name: Deploy the application
+        env:
+          KUBECONFIG: ${{ steps.kubernetes-authentication.outputs.kube_config }}
         run: |
-          kubectl patch -p '{"spec": {"template": {"spec": {"containers": [{"name": "application", "image": "<<FULL_IMAGE_PATH"}]}}}}'
+          kubectl patch -p '{"spec": {"template": {"spec": {"containers": [{"name": "application", "image": "${{ github.event.inputs.imagePath }}"}]}}}}'
 ```
