@@ -12,7 +12,7 @@ sed "s|<cluster-server>|${CLUSTER_SERVER}|" kube-config.tmp-0 > kube-config.tmp-
 sed "s/<user-token>/${TOKEN}/" kube-config.tmp-1 > kube-config
 
 rm kube-config.tmp-0 kube-config.tmp-1
-KUBE_CONFIG_PATH=$(PWD)/kube-config
+KUBE_CONFIG_PATH=$(pwd)/kube-config
 
 # outout the path to the kubeconfig file so downstream steps can use it.
 echo "::set-output name=kube_config::${KUBE_CONFIG_PATH}"
