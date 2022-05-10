@@ -1,5 +1,6 @@
 # kubernetes-artifact-github-action
 
+
 ### Example data.json
 
 This is an example of the data.json file that is expected as an environment variable.
