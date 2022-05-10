@@ -24,6 +24,12 @@ This is an example of the data.json file that is expected as an environment vari
 
 ```yaml
 name: Deploy to cluster
+on:
+   workflow_dispatch:
+     inputs:
+       imagePath:
+         description: 'Application image path'
+         required: true
 jobs:
   deploy_application:
     name: Deploy
@@ -35,6 +41,8 @@ jobs:
           ARTIFACT_KUBERNETES_CLUSTER: ${{ secrets.ARTIFACT_KUBERNETES_CLUSTER }}
         uses: massdriver-cloud/kubernetes-authentication-github-action
       - name: Deploy the application
+        env:
+          KUBECONFIG: ${{ steps.kubernetes-authentication.outputs.kube_config }}
         run: |
-          kubectl patch -p '{"spec": {"template": {"spec": {"containers": [{"name": "application", "image": "<<FULL_IMAGE_PATH"}]}}}}'
+          kubectl patch -p '{"spec": {"template": {"spec": {"containers": [{"name": "application", "image": "${{ github.event.inputs.imagePath }}"}]}}}}'
 ```
