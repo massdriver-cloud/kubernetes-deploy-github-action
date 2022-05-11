@@ -10,7 +10,8 @@ RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.21.0/b
   chmod +x ./kubectl && \
   mv ./kubectl /usr/local/bin/kubectl
 
-COPY . .
+COPY entrypoint.sh /entrypoint.sh
+COPY kube-config-template /kube-config-template
 RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
