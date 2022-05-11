@@ -13,7 +13,5 @@ RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.21.0/b
 COPY . .
 RUN chmod +x /entrypoint.sh
 
-ENV KUBECONFIG=kube-config
-
 ENTRYPOINT ["/entrypoint.sh"]
 
