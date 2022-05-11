@@ -5,14 +5,6 @@ CERTIFICATE_AUTHORITY_DATA=$(echo $ARTIFACT_KUBERNETES_CLUSTER | jq -r '.authent
 CLUSTER_SERVER=$(echo $ARTIFACT_KUBERNETES_CLUSTER | jq -r '.authentication.cluster.server')
 TOKEN=$(echo $ARTIFACT_KUBERNETES_CLUSTER | jq -r '.authentication.user.token')
 
-# debugging
-ls -al
-pwd
-echo "/github/workflow"
-ls -al /github/workflow
-echo "/github/home"
-ls -al /github/home
-
 sed "s/<certificate-authority-data>/${CERTIFICATE_AUTHORITY_DATA}/" /kube-config-template > kube-config.tmp-0
 sed "s|<cluster-server>|${CLUSTER_SERVER}|" kube-config.tmp-0 > kube-config.tmp-1
 sed "s/<user-token>/${TOKEN}/" kube-config.tmp-1 > kube-config

@@ -33,8 +33,8 @@ name: Deploy to cluster
 on:
   workflow_dispatch:
     inputs:
-      imagePath:
-        description: 'Application image path'
+      imageTag:
+        description: 'Application image tag'
         required: true
 
 jobs:
@@ -51,5 +51,5 @@ jobs:
         env:
           KUBECONFIG: ${{ steps.kubernetes-authentication.outputs.kube_config }}
         run: |
-          kubectl patch -p '{"spec": {"template": {"spec": {"containers": [{"name": "application", "image": "${{ github.event.inputs.imagePath }}"}]}}}}'
+          kubectl patch -p '{"spec": {"template": {"spec": {"containers": [{"name": "application", "image": "${{ secrets.APPLICATION_IMAGE_REPOSITORY }}:${{ github.event.inputs.imageTag }}"}]}}}}'
 ```
