@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-echo ${ARTIFACT_KUBERNETES_CLUSTER} > /kube-config
+echo "${ARTIFACT_KUBERNETES_CLUSTER}" > /kube-config
 echo "::set-output name=kube_config::/kube-config"
 export KUBECONFIG=/kube-config
 
