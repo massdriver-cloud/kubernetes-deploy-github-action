@@ -1,15 +1,13 @@
 #!/bin/bash
 set -e
 
-CERTIFICATE_AUTHORITY_DATA=$(echo $ARTIFACT_KUBERNETES_CLUSTER | jq -r '.authentication.cluster."certificate-authority-data"')
-CLUSTER_SERVER=$(echo $ARTIFACT_KUBERNETES_CLUSTER | jq -r '.authentication.cluster.server')
-TOKEN=$(echo $ARTIFACT_KUBERNETES_CLUSTER | jq -r '.authentication.user.token')
+# quotes are SUPER REQUIRED here... without them the newlines don't get preserved
+echo "${ARTIFACT_KUBERNETES_CLUSTER}" > /kube-config
+echo "::set-output name=kube_config::/kube-config"
+export KUBECONFIG=/kube-config
 
-sed "s/<certificate-authority-data>/${CERTIFICATE_AUTHORITY_DATA}/" /kube-config-template > kube-config.tmp-0
-sed "s|<cluster-server>|${CLUSTER_SERVER}|" kube-config.tmp-0 > kube-config.tmp-1
-sed "s/<user-token>/${TOKEN}/" kube-config.tmp-1 > kube-config
+# GITHUB Actions only interpolate yaml or bash-in-yaml
+# there's no way for this file to understant ${{ inputs.application_id }}
+# so we pass it in as an environment variable instead
 
-rm kube-config.tmp-0 kube-config.tmp-1
-
-# output the path to the kubeconfig file so downstream steps can use it.
-echo "::set-output name=kube_config::kube-config"
+kubectl patch deployment ${APPLICATION_ID} -p '{"spec": {"template": {"spec": {"containers": [{"name": "${APPLICATION_ID}", "image": "${IMAGE}"}]}}}}'
