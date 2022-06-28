@@ -1,16 +1,6 @@
 # action.yaml
 name: 'Massdriver Kubernetes CD'
 description: 'Consumes a Massdriver kubernetes-cluster artifact, and deploys a new version of a specified application to the cluster.'
-inputs:
-  application_id:
-    description: 'The Massdriver application ID.'
-    required: true
-  image:
-    description: 'The full image name, including the updated tag.'
-    required: true
-outputs:
-  kube_config:
-    description: 'Path to the kube config file'
 runs:
   using: 'docker'
   image: 'Dockerfile'

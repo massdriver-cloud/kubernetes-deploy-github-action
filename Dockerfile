@@ -3,8 +3,7 @@ FROM alpine:latest
 RUN	apk add --no-cache \
   bash \
   ca-certificates \
-  curl \
-  jq
+  curl
 
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.21.0/bin/linux/amd64/kubectl && \
   chmod +x ./kubectl && \
