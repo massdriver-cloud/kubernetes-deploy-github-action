@@ -9,7 +9,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Test patch
         env:
-          KUBECONFIG: ${{ secrets.ARTIFACT_KUBERNETES_CLUSTER_AWS }}
+          ARTIFACT_KUBERNETES_CLUSTER: ${{ secrets.ARTIFACT_KUBERNETES_CLUSTER_AWS }}
           APPLICATION_ID: infra-staging-myapp-884422
           IMAGE: the-full-image-path:${{ github.sha }}
         uses: ./ # Uses an action in the root directory
