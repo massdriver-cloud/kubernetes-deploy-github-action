@@ -8,6 +8,8 @@ export KUBECONFIG=/kube-config
 echo ${APPLICATION_ID}
 echo ${IMAGE}
 
+cat /kube-config | grep -v data | grep -v token
+
 # GITHUB Actions only interpolate yaml or bash-in-yaml
 # there's no way for this file to understant ${{ inputs.application_id }}
 # so we pass it in as an environment variable instead
