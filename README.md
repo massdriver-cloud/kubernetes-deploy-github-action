@@ -1,4 +1,4 @@
-# kubernetes-artifact-github-action
+# kubernetes-deploy-github-action
 
 ### Prerequisites
 
@@ -66,7 +66,7 @@ jobs:
     needs: build_and_push
     steps:
       - name: Deploy the application
-        uses: massdriver-cloud/kubernetes-authentication-github-action@v1.1.0
+        uses: massdriver-cloud/kubernetes-deploy-github-action@v1.1.0
         env:
           ARTIFACT_KUBERNETES_CLUSTER: ${{ secrets.ARTIFACT_KUBERNETES_CLUSTER_STAGING }}
           APPLICATION_NAME: infra-staging-myapp-884422
