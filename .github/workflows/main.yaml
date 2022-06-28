@@ -7,19 +7,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Test patch
-        env:
-          ARTIFACT_KUBERNETES_CLUSTER: ${{ secrets.ARTIFACT_KUBERNETES_CLUSTER_GCP }}
-          APPLICATION_ID: infra-staging-myapp-884422
-          IMAGE: the-full-image-path:${{ github.sha }}
-        uses: ./ # Uses an action in the root directory
-        id: kubernetes-patch-aws
-      # - name: Generate the kube config
+      # commented-out for now, the action is made simpler by calling patch in the entrypoint
+      # and until we have "live clusters" to test this patch against, we'll leave these out
+      # - name: Test patch GCP
       #   env:
       #     ARTIFACT_KUBERNETES_CLUSTER: ${{ secrets.ARTIFACT_KUBERNETES_CLUSTER_GCP }}
+      #     APPLICATION_ID: infra-staging-myapp-884422
+      #     IMAGE: the-full-image-path:${{ github.sha }}
+      #   uses: ./ # Uses an action in the root directory
+      #   id: kubernetes-patch-aws
+      # - name: Test patch AWS
+      #   env:
+      #     ARTIFACT_KUBERNETES_CLUSTER: ${{ secrets.ARTIFACT_KUBERNETES_CLUSTER_AWS }}
+      #     APPLICATION_ID: infra-staging-myapp-884422
+      #     IMAGE: the-full-image-path:${{ github.sha }}
       #   uses: ./
       #   id: kubernetes-authentication-gcp
-      # - name: Test kube config, GCP
-      #   env:
-      #     KUBECONFIG: ${{ steps.kubernetes-authentication-gcp.outputs.kube_config }}
-      #   run: kubectl get pods
