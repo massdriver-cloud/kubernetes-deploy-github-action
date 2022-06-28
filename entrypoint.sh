@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-mkdir -p ${HOME}/.kube
-echo ${ARTIFACT_KUBERNETES_CLUSTER} > ${HOME}/.kube/config
-echo "::set-output name=kube_config::${HOME}/.kube/config"
+echo ${ARTIFACT_KUBERNETES_CLUSTER} > /kube-config
+echo "::set-output name=kube_config::/kube-config"
+export KUBECONFIG=/kube-config
 # GITHUB Actions only interpolate yaml or bash-in-yaml
 # there's no way for this file to understant ${{ inputs.application_id }}
 # so we pass it in as an environment variable instead
