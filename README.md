@@ -1,24 +1,14 @@
 # kubernetes-artifact-github-action
 
+### Prerequisites
+
+A Massdriver-provisioned Kubernetes cluster.
+
 ### Adding A GitHub Action Secret
 
-This action expects an evironment variable called `ARTIFACT_KUBERNETES_CLUSTER` with the value set as a Massdriver _artifact_.
-This is an example of the `kubernetes-cluster` artifact, downloaded from the Massdriver UI, as a data.json file.
+This action expects an evironment variable called `ARTIFACT_KUBERNETES_CLUSTER` with the value set as a Massdriver _artifact_. In the Massdriver UI, navigate to your artifacts and search for `kubernetes-cluster`. Make sure it's for the project and target you want to deploy to, then click the arrow in the _Actions_ column.
 
-```json
-{
-  "authentication": {
-    "cluster": {
-      "certificate-authority-data": "base64-encoded-certificate-authority-data",
-      "server": "https://118.118.118.118"
-    },
-    "user": {
-      "token": "base64-encoded-token"
-    }
-  },
-  "infrastructure": {}
-}
-```
+Massdriver supports downloading both a "raw" json artifact and a Kube Config yaml file. Click the arrow next to _Download Raw_ and you'll see the option for the Kube Config file. Select _Kube Config_ and then click the button to download the file.
 
 GitHub environment variables don't work well with newlines, so we'll simply replace them with spaces. (`pbcopy` can be used to copy the newline-free environment variable to the clipboard.)
 
