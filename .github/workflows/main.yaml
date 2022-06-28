@@ -12,6 +12,9 @@ jobs:
           ARTIFACT_KUBERNETES_CLUSTER: ${{ secrets.ARTIFACT_KUBERNETES_CLUSTER_AWS }}
         uses: ./ # Uses an action in the root directory
         id: kubernetes-authentication-aws
+        with:
+          application_id: infra-staging-myapp-884422
+          image: the-full-image-path:${{ github.sha }}
       - name: Test kube config, AWS
         env:
           KUBECONFIG: ${{ steps.kubernetes-authentication-aws.outputs.kube_config }}
